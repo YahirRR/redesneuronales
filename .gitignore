@@ -47,3 +47,16 @@ env/
 
 # Documentos Word
 *.docx
+
+# Detector y datasets YOLO
+outputs/detector/
+outputs/detector_runs/
+data/yolo_fracture/
+*.dcm
+data/grazpedwri/
+
+# Salidas de Ultralytics y herramientas locales
+runs/
+.agents/
+.claude/
+outputs/train_*.log

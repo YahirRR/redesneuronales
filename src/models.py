@@ -77,5 +77,11 @@ def load_model(
     model = FractureClassifier(backbone=backbone, pretrained=pretrained)
     if checkpoint_path is not None:
         state = torch.load(checkpoint_path, map_location=map_location, weights_only=True)
-        model.load_state_dict(state["model_state"] if "model_state" in state else state)
+        sd = state["model_state"] if "model_state" in state else state
+        # Checkpoints antiguos guardaron la capa final sin Dropout delante (fc.weight -> fc.1.weight).
+        for head in ("backbone.fc", "backbone.classifier"):
+            if f"{head}.weight" in sd:
+                sd[f"{head}.1.weight"] = sd.pop(f"{head}.weight")
+                sd[f"{head}.1.bias"] = sd.pop(f"{head}.bias")
+        model.load_state_dict(sd)
     return model

@@ -4,8 +4,12 @@ opencv-python
 pillow
 numpy
 scikit-learn
+scikit-image
 matplotlib
 seaborn
 streamlit
 tqdm
 tensorboard
+pydicom
+# Opcional: detector de localización
+ultralytics
